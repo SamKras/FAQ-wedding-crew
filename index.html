@@ -701,9 +701,14 @@ ${sourceDocBlock}`;
 <div class="info-box">Первые <strong>70 миль суммарно</strong> (35 миль до локации + 35 миль обратно) – <strong>бесплатно</strong>.<br>Каждая миля свыше этих 70 оплачивается по <strong>$0.80 за милю</strong>.</div>
 <div class="fee-calc-box" data-lang="ru" style="background:#f5f5f5;border:1px solid #e4e4e4;border-radius:8px;padding:14px 16px;margin:10px 0 4px;">
   <div style="font-size:10px;font-weight:600;letter-spacing:1px;color:#999;margin-bottom:10px;text-transform:uppercase;">Калькулятор тревел-фи</div>
+  <div style="display:flex;gap:6px;margin-bottom:8px;">
+    <button type="button" class="fee-calc-mode-btn active" data-mode="name" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#1a1a1a;color:#fff;cursor:pointer;">Выбрать имя</button>
+    <button type="button" class="fee-calc-mode-btn" data-mode="address" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#555;cursor:pointer;">Указать адрес</button>
+  </div>
   <select class="fee-calc-name" onfocus="loadFeeCalcNames(this)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;background:#fff;color:#1a1a1a;">
     <option value="">Выберите ваше имя...</option>
   </select>
+  <input type="text" class="fee-calc-origin" placeholder="Ваш адрес (откуда выезжаете)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;display:none;">
   <input type="text" class="fee-calc-dest" placeholder="Адрес локации (например: Times Square, New York, NY)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px;">
   <button type="button" onclick="calcTravelFeeWidget(this)" style="padding:8px 16px;font-size:13px;font-weight:500;border:none;border-radius:6px;background:#1a1a1a;color:#fff;cursor:pointer;">Рассчитать</button>
   <div class="fee-calc-result" style="margin-top:10px;font-size:13px;color:#333;line-height:1.7;"></div>
@@ -1207,9 +1212,14 @@ ${sourceDocBlock}`;
 <div class="info-box">The first <strong>70 miles total</strong> (35 miles to the location + 35 miles back) are <strong>free</strong>.<br>Every mile beyond 70 is charged at <strong>$0.80 per mile</strong>.</div>
 <div class="fee-calc-box" data-lang="en" style="background:#f5f5f5;border:1px solid #e4e4e4;border-radius:8px;padding:14px 16px;margin:10px 0 4px;">
   <div style="font-size:10px;font-weight:600;letter-spacing:1px;color:#999;margin-bottom:10px;text-transform:uppercase;">Travel fee calculator</div>
+  <div style="display:flex;gap:6px;margin-bottom:8px;">
+    <button type="button" class="fee-calc-mode-btn active" data-mode="name" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#1a1a1a;color:#fff;cursor:pointer;">By name</button>
+    <button type="button" class="fee-calc-mode-btn" data-mode="address" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#555;cursor:pointer;">By address</button>
+  </div>
   <select class="fee-calc-name" onfocus="loadFeeCalcNames(this)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;background:#fff;color:#1a1a1a;">
     <option value="">Select your name...</option>
   </select>
+  <input type="text" class="fee-calc-origin" placeholder="Your address (where you're driving from)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;display:none;">
   <input type="text" class="fee-calc-dest" placeholder="Venue address (e.g. Times Square, New York, NY)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px;">
   <button type="button" onclick="calcTravelFeeWidget(this)" style="padding:8px 16px;font-size:13px;font-weight:500;border:none;border-radius:6px;background:#1a1a1a;color:#fff;cursor:pointer;">Calculate</button>
   <div class="fee-calc-result" style="margin-top:10px;font-size:13px;color:#333;line-height:1.7;"></div>
@@ -1331,18 +1341,37 @@ function loadFeeCalcNames(selectEl) {
     });
 }
 
+function setFeeCalcMode(btn) {
+  const wrap = btn.closest('.fee-calc-box');
+  const mode = btn.dataset.mode;
+  wrap.querySelectorAll('.fee-calc-mode-btn').forEach(b => {
+    const active = b === btn;
+    b.classList.toggle('active', active);
+    b.style.background = active ? '#1a1a1a' : '#fff';
+    b.style.color = active ? '#fff' : '#555';
+  });
+  wrap.querySelector('.fee-calc-name').style.display = mode === 'name' ? '' : 'none';
+  wrap.querySelector('.fee-calc-origin').style.display = mode === 'address' ? '' : 'none';
+  wrap.querySelector('.fee-calc-result').innerHTML = '';
+}
+
 function calcTravelFeeWidget(btn) {
   const wrap = btn.closest('.fee-calc-box');
   const nameSel = wrap.querySelector('.fee-calc-name');
   const destInput = wrap.querySelector('.fee-calc-dest');
+  const originInput = wrap.querySelector('.fee-calc-origin');
+  const activeModeBtn = wrap.querySelector('.fee-calc-mode-btn.active');
+  const mode = activeModeBtn ? activeModeBtn.dataset.mode : 'name';
   const resultBox = wrap.querySelector('.fee-calc-result');
-  const name = nameSel.value;
+  const name = mode === 'name' ? nameSel.value : '';
+  const originAddress = mode === 'address' ? originInput.value.trim() : '';
   const destination = destInput.value.trim();
   const calcLang = wrap.dataset.lang;
 
   const msgs = {
     ru: {
       selectName: 'Выберите исполнителя из списка.',
+      enterOrigin: 'Введите ваш адрес.',
       enterAddress: 'Введите адрес локации.',
       loading: 'Считаем...',
       error: 'Не удалось рассчитать. Проверьте адрес и попробуйте снова.',
@@ -1352,6 +1381,7 @@ function calcTravelFeeWidget(btn) {
     },
     en: {
       selectName: 'Please select your name from the list.',
+      enterOrigin: 'Please enter your address.',
       enterAddress: 'Please enter the venue address.',
       loading: 'Calculating...',
       error: 'Could not calculate. Please check the address and try again.',
@@ -1362,12 +1392,16 @@ function calcTravelFeeWidget(btn) {
   };
   const t = msgs[calcLang] || msgs.ru;
 
-  if (!name) { resultBox.innerHTML = t.selectName; return; }
+  if (mode === 'name' && !name) { resultBox.innerHTML = t.selectName; return; }
+  if (mode === 'address' && !originAddress) { resultBox.innerHTML = t.enterOrigin; return; }
   if (!destination) { resultBox.innerHTML = t.enterAddress; return; }
 
   resultBox.innerHTML = t.loading;
 
-  fetch(FEE_CALC_API + '?action=calc&name=' + encodeURIComponent(name) + '&destination=' + encodeURIComponent(destination))
+  const nameOrOriginParam = mode === 'address'
+    ? '&origin=' + encodeURIComponent(originAddress)
+    : '&name=' + encodeURIComponent(name);
+  fetch(FEE_CALC_API + '?action=calc&destination=' + encodeURIComponent(destination) + nameOrOriginParam)
     .then(r => r.json())
     .then(data => {
       if (!data || data.error === 'executor_not_found') { resultBox.innerHTML = t.notFound; return; }
