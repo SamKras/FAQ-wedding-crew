@@ -696,26 +696,8 @@ ${sourceDocBlock}`;
           },
           {
             q: 'Как оплачивается тревел фи?',
-            a: (p) => p === 'lero'
-              ? `<p>Тревел фи оплачивается вместе с основным гонораром. Выплата производится после загрузки материала в ближайший вторник или пятницу.</p>
-<p>Как рассчитывается тревел фи – спрашивать у менеджера проекта.</p>`
-              : `<p>Тревел фи оплачивается вместе с основным гонораром. Выплата производится после загрузки материала в ближайший вторник или пятницу.</p>
-<p>Как рассчитывается тревел фи:</p>
-<div class="info-box">Первые <strong>70 миль суммарно</strong> (35 миль до локации + 35 миль обратно) – <strong>бесплатно</strong>.<br>От 70 до 170 миль – <strong>$0.45</strong> за каждую милю сверх бесплатных 70.<br>Свыше 170 миль – фиксированные <strong>$90</strong>.</div>
-<div class="fee-calc-box" data-lang="ru" style="background:#f5f5f5;border:1px solid #e4e4e4;border-radius:8px;padding:14px 16px;margin:10px 0 4px;">
-  <div style="font-size:10px;font-weight:600;letter-spacing:1px;color:#999;margin-bottom:10px;text-transform:uppercase;">Калькулятор тревел-фи</div>
-  <div style="display:flex;gap:6px;margin-bottom:8px;">
-    <button type="button" class="fee-calc-mode-btn active" data-mode="name" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#1a1a1a;color:#fff;cursor:pointer;">Выбрать имя</button>
-    <button type="button" class="fee-calc-mode-btn" data-mode="address" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#555;cursor:pointer;">Указать адрес</button>
-  </div>
-  <select class="fee-calc-name" onfocus="loadFeeCalcNames(this)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;background:#fff;color:#1a1a1a;">
-    <option value="">Выберите ваше имя...</option>
-  </select>
-  <input type="text" class="fee-calc-origin" placeholder="Ваш адрес (откуда выезжаете)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;display:none;">
-  <input type="text" class="fee-calc-dest" placeholder="Адрес локации (например: Times Square, New York, NY)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px;">
-  <button type="button" onclick="calcTravelFeeWidget(this)" style="padding:8px 16px;font-size:13px;font-weight:500;border:none;border-radius:6px;background:#1a1a1a;color:#fff;cursor:pointer;">Рассчитать</button>
-  <div class="fee-calc-result" style="margin-top:10px;font-size:13px;color:#333;line-height:1.7;"></div>
-</div>`
+                        a: `<p>Тревел фи оплачивается вместе с основным гонораром. Выплата производится после загрузки материала в ближайший вторник или пятницу.</p>
+                        <p>Как рассчитывается тревел фи – обсуждать с менеджером.</p>`
           },
           {
             q: 'Когда проводятся выплаты?',
@@ -1219,26 +1201,8 @@ ${sourceDocBlock}`;
           },
           {
             q: 'How is the travel fee paid?',
-            a: (p) => p === 'lero'
-              ? `<p>The travel fee is paid together with the main fee. Payment is processed after materials are uploaded, on the nearest Tuesday or Friday.</p>
-<p>How the travel fee is calculated – ask the project manager.</p>`
-              : `<p>The travel fee is paid together with the main fee. Payment is processed after materials are uploaded, on the nearest Tuesday or Friday.</p>
-<p>How the travel fee is calculated:</p>
-<div class="info-box">The first <strong>70 miles total</strong> (35 miles to the location + 35 miles back) are <strong>free</strong>.<br>From 70 to 170 miles – <strong>$0.45</strong> per mile beyond the free 70.<br>Over 170 miles – a flat <strong>$90</strong>.</div>
-<div class="fee-calc-box" data-lang="en" style="background:#f5f5f5;border:1px solid #e4e4e4;border-radius:8px;padding:14px 16px;margin:10px 0 4px;">
-  <div style="font-size:10px;font-weight:600;letter-spacing:1px;color:#999;margin-bottom:10px;text-transform:uppercase;">Travel fee calculator</div>
-  <div style="display:flex;gap:6px;margin-bottom:8px;">
-    <button type="button" class="fee-calc-mode-btn active" data-mode="name" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#1a1a1a;color:#fff;cursor:pointer;">By name</button>
-    <button type="button" class="fee-calc-mode-btn" data-mode="address" onclick="setFeeCalcMode(this)" style="padding:5px 12px;font-size:12px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#555;cursor:pointer;">By address</button>
-  </div>
-  <select class="fee-calc-name" onfocus="loadFeeCalcNames(this)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;background:#fff;color:#1a1a1a;">
-    <option value="">Select your name...</option>
-  </select>
-  <input type="text" class="fee-calc-origin" placeholder="Your address (where you're driving from)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;display:none;">
-  <input type="text" class="fee-calc-dest" placeholder="Venue address (e.g. Times Square, New York, NY)" style="width:100%;padding:9px 10px;font-size:13px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px;">
-  <button type="button" onclick="calcTravelFeeWidget(this)" style="padding:8px 16px;font-size:13px;font-weight:500;border:none;border-radius:6px;background:#1a1a1a;color:#fff;cursor:pointer;">Calculate</button>
-  <div class="fee-calc-result" style="margin-top:10px;font-size:13px;color:#333;line-height:1.7;"></div>
-</div>`
+                        a: `<p>The travel fee is paid together with the main fee. Payment is processed after materials are uploaded, on the nearest Tuesday or Friday.</p>
+                        <p>How the travel fee is calculated – discuss with the project manager.</p>`
           },
           {
             q: 'When are payments processed?',
